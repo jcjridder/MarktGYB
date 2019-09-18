@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+  <br />
+
+
+
+
+<script src="js/functions.js"></script>
+
+
+<button class="defaultButton bigButton" onclick="location.href ='/beheer';">Beheer</button>
+
+<button class="defaultButton bigButton" onclick="location.href ='/orders';">Orders</button>
+
+<br />
+<br />
+<button class="defaultButton bigButton" onclick="newProduct();">Nieuw product</button>
+
+
+
+
+    <button class="refreshButton" onclick="refreshTable();">Refresh</button>
+    <div class="example-wrapper">
+
+    
+
+    <div class="content_product" id="content_product_wrapper" style="display:none;">
+        <div class="inputWrap">
+            <label>Ean</label>
+            <p><input type="text" data-db="ean" id="product_ean" value=""></p>
+        </div>
+        <div class="inputWrap">
+            <label>Artikel nummer</label>
+            <p><input type="text" data-db="artnr" id="product_artnr" value=""></p>
+        </div>
+        <div class="inputWrap">
+            <label>Naam</label>
+            <p><input type="text" data-db="name" id="product_name" value=""></p>
+        </div>
+        <div class="inputWrap">
+            <label>Korte omschrijving</label>
+            <p><input type="text" data-db="description" id="product_description" value=""></p>
+        </div>
+        <div class="inputWrap">
+                <label>Product prijs</label>
+                <p><input type="text" data-db="price" id="product_price" value=""></p>
+        </div>
+        <div class="inputWrap">
+            <label>Inkoop prijs</label>
+            <p><input type="text" data-db="buyprice" id="product_buyprice" value=""></p>
+        </div>
+        <div class="inputWrap">
+                <label>Product Kleur</label>
+                <p><input type="text" data-db="color" id="product_color" value=""></p>
+        </div>
+        <div class="inputWrap">
+            <label>Afbeelding</label>
+            <p id="product_picture"></p>
+            <img id="picture_output" src="" style="width:80%; margin: auto; height: auto; display: block;">
+            
+            <p><input type="file" data-db="picture" capture="camera" accept="image/*" onchange="encodeImagetoBase64(this)" id="product_picture_input" value=""></p>
+        </div>
+        <div class="inputWrap">
+            <p><label>Voorraad</label></p>
+            <div class="floatWrap">
+                <button class="defaultButton " id="removeStockButton" onclick="removeOne('product_stock')">-</button>
+                <p><input type="text" data-db="stock" class="smallInput" id="product_stock" value="0"></p>
+                <button class="defaultButton " id="addStockButton" onclick="addOne('product_stock')">+</button>
+            </div>
+        </div>
+
+    <br />
+    <button class="defaultButton bigButton" id="submitButton" onclick="submitProduct();">Toevoegen/aanpassen</button>
+    <br />
+    <br />
+    <button class="defaultButton bigButton" id="submitButton" onclick="cancelEdit();">Annuleren</button>
+    <br />
+    <br />
+    </div>
+    <input type="hidden" id="picture_output_val" value="">
+
+
+    <div class="inputWrap">
+        <label>Zoeken</label>
+        <p><input type="text" data-db="search" id="product_search" value=""></p>
+    </div>
+
+    <div id="productsTableWrap">
+        {{ render(controller('App\\Controller\\OnlineController::getAllProducts')) }}
+    </div>
+    
+</div>
+{% endblock %}
